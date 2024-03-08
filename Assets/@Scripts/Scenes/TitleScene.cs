@@ -3,10 +3,26 @@ using System.Collections.Generic;
 using Unity.Profiling.Editor;
 using UnityEngine;
 
-public class TitleScene : MonoBehaviour
+using static Define;
+
+public class TitleScene : BaseScene
 {
+    public override bool Init()
+    {
+        if(false == base.Init())
+        {
+            return false;
+        }
+        
+        SceneType = EScene.TitleScene;
+
+        //StartLoadAsset();
+
+        return true;
+        
+    }
     // Start is called before the first frame update
-    void Start()
+    void StartLoadAsset()
     {
         Managers.Resource.LoadAllAsync<Object>("PreLoad", (key, count, totalCount) =>
         {
