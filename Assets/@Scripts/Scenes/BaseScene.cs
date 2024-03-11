@@ -26,4 +26,9 @@ public class BaseScene : InitBase
 
         return true;
     }
+
+    public virtual void Clear()
+    {
+
+    }
 }
