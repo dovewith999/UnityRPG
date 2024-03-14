@@ -15,12 +15,13 @@ public class ResourceManager
     public T Load<T>(string key) where T : Object
     {
         if (_resources.TryGetValue(key, out Object resource))
+        {
             return resource as T;
+        }
 
         return null;
     }
 
-   
     public GameObject Instantiate(string key, Transform parent = null, bool pooling = false)
     {
         GameObject prefab = Load<GameObject>(key);
@@ -32,8 +33,6 @@ public class ResourceManager
 
         if (pooling)
             return Managers.Pool.Pop(prefab);
-
-        //유니티의 프리펩을 가져와서 복제품을 만드는 함수
 
         GameObject go = Object.Instantiate(prefab, parent);
         go.name = prefab.name;

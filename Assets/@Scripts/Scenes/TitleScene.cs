@@ -28,9 +28,9 @@ public class TitleScene : BaseScene
         {
             Debug.Log($"{key} {count}/{totalCount}");
 
-            if(count == totalCount)
+            if (count == totalCount)
             {
-
+                //Managers.Data.Init();
             }
         });
     }

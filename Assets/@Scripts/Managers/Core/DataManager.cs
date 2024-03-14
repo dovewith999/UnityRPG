@@ -5,19 +5,33 @@ using UnityEngine;
 
 public interface ILoader<Key, Value>
 {
-    Dictionary<Key, Value> MakeDict();  
+    Dictionary<Key, Value> MakeDict();
 }
 
-public class DataManager // 데이터 시트를 관리하는 매니저
+public class DataManager
 {
     public Dictionary<int, Data.CreatureData> CreatureDic { get; private set; } = new Dictionary<int, Data.CreatureData>();
+    public Dictionary<int, Data.EnvData> EnvDic { get; private set; } = new Dictionary<int, Data.EnvData>();
+
     public void Init()
     {
+        Debug.Log("DataManagerInit");
+
         CreatureDic = LoadJson<Data.CreatureDataLoader, int, Data.CreatureData>("CreatureData").MakeDict();
+        EnvDic = LoadJson<Data.EnvDataLoader, int, Data.EnvData>("EnvData").MakeDict();
     }
+
     private Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
         TextAsset textAsset = Managers.Resource.Load<TextAsset>(path);
+
+        Debug.Log("" +  path);
+
+        if(null == textAsset)
+        {
+            Debug.Log("textAsset is null");
+        }
+
         return JsonConvert.DeserializeObject<Loader>(textAsset.text);
     }
 }

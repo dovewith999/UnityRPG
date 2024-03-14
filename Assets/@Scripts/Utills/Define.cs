@@ -51,6 +51,14 @@ public static class Define
         Dead
     }
 
+    public enum EEnvState
+    {
+        Idle,
+        OnDamaged,
+        Dead
+    }
+
+
     public enum ESound
     {
         Bgm,
