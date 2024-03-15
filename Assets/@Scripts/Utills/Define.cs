@@ -29,6 +29,7 @@ public static class Define
     public enum EObjectType
     {
         None,
+        HeroCamp,
         Creature,
         Projectile,
         Env,
@@ -64,6 +65,20 @@ public static class Define
         Bgm,
         Effect,
         Max,
+    }
+    public enum ELayer
+    {
+        Default = 0,
+        TransparentFX = 1,
+        IgnoreRaycast = 2,
+        Dummy1 = 3,
+        Water = 4,
+        UI = 5,
+        Hero = 6,
+        Monster = 7,
+        Env = 8,
+        Obstacle = 9,
+        Projectile = 10,
     }
 
     public const int CAMERA_PROJECTION_SIZE = 12;

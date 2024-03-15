@@ -6,7 +6,7 @@ using static Define;
 
 public class Hero : Creature
 {
-
+    public float Speed { get; set; } = 5.0f;
     Vector2 _moveDir = Vector2.zero;
 
     public override bool Init()
@@ -30,7 +30,7 @@ public class Hero : Creature
 
     void Update()
     {
-        transform.TranslateEx(_moveDir * Time.deltaTime * MoveSpeed);
+        transform.TranslateEx(_moveDir * Time.deltaTime * Speed);
     }
 
     private void HandleOnMoveDirChanged(Vector2 dir)
