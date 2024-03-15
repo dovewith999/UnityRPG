@@ -51,6 +51,15 @@ public static class Define
         Skill,
         Dead
     }
+    public enum EHeroMoveState
+    {
+        None,
+        TargetMonster,
+        CollectEnv,
+        ReturnToCamp,
+        ForceMove,
+        ForcePath
+    }
 
     public enum EEnvState
     {

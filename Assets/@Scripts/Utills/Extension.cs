@@ -21,6 +21,16 @@ public static class Extension
         return go != null && go.activeSelf;
     }
 
+    public static bool IsValid(this BaseObject bo)
+    {
+        if(null == bo || false == bo.isActiveAndEnabled)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public static void DestroyChilds(this GameObject go)
     {
         foreach (Transform child in go.transform)
