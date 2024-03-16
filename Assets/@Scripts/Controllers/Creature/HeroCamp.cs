@@ -32,19 +32,6 @@ public class HeroCamp : BaseObject
 
     private void Update()
     {
-        //Vector3 dir = _moveDir * Time.deltaTime * Speed;
-        //Vector3 newPos = transform.position + dir;
-
-        //if (Managers.Map == null)
-        //    return;
-        //if (Managers.Map.CanGo(null, newPos, ignoreObjects: true, ignoreSemiWall: true) == false)
-        //    return;
-
-        //transform.position = newPos; 
-
-        // Map Transition
-        //Managers.Map.StageTransition.CheckMapChanged(newPos);
-
         transform.Translate(_moveDir * Time.deltaTime * Speed);
     }
 

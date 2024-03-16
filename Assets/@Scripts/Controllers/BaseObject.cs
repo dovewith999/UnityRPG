@@ -1,10 +1,10 @@
+using Spine;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static Define;
-using static TMPro.Examples.TMP_ExampleScript_01;
 
 public class BaseObject : InitBase
 {
@@ -41,20 +41,17 @@ public class BaseObject : InitBase
         return true;
     }
 
-    public void TranslateEx(Vector3 dir)
+    #region Battle
+    public virtual void OnDamaged(BaseObject attacker)
     {
-        transform.Translate(dir);
 
-        if (dir.x < 0)
-        {
-            LookLeft = true;
-        }
-
-        else if (dir.x > 0)
-        {
-            LookLeft = false;
-        }
     }
+
+    public virtual void OnDead(BaseObject attacker)
+    {
+
+    }
+    #endregion
 
     #region Spine
     protected virtual void SetSpineAnimation(string dataLabel, int sortingOrder)
@@ -77,22 +74,15 @@ public class BaseObject : InitBase
 
     public void SetRigidBodyVelocity(Vector2 velocity)
     {
-        if(null == RigidBody)
-        {
+        if (RigidBody == null)
             return;
-        }
 
-        RigidBody.velocity = velocity;  
+        RigidBody.velocity = velocity;
 
-        if(velocity.x <0)
-        {
+        if (velocity.x < 0)
             LookLeft = true;
-        }
-
-        else if(velocity.x > 0)
-        {
+        else if (velocity.x > 0)
             LookLeft = false;
-        }
     }
 
     public void PlayAnimation(int trackIndex, string AnimName, bool loop)
@@ -117,6 +107,11 @@ public class BaseObject : InitBase
             return;
 
         SkeletonAnim.Skeleton.ScaleX = flag ? -1 : 1;
+    }
+
+    public virtual void OnAnimEventHandler(TrackEntry trackEntry, Spine.Event e)
+    {
+        Debug.Log("OnAnimEventHandler");
     }
     #endregion
 }

@@ -34,10 +34,8 @@ public class Monster : Creature
 
     public override bool Init()
     {
-        if (false == base.Init())
-        {
+        if (base.Init() == false)
             return false;
-        }
 
         CreatureType = ECreatureType.Monster;
 
@@ -50,11 +48,11 @@ public class Monster : Creature
     {
         base.SetInfo(templateID);
 
-        //state
+        // State
         CreatureState = ECreatureState.Idle;
     }
 
-    private void Start()
+    void Start()
     {
         _initPos = transform.position;
     }
@@ -68,8 +66,6 @@ public class Monster : Creature
 
     protected override void UpdateIdle()
     {
-        Debug.Log("Idle");
-
         // Patrol
         {
             int patrolPercent = 10;
@@ -96,14 +92,10 @@ public class Monster : Creature
                 Debug.Log(distToTargetSqr);
 
                 if (distToTargetSqr > searchDistanceSqr)
-                {
                     continue;
-                }
 
                 if (distToTargetSqr > bestDistanceSqr)
-                {
                     continue;
-                }
 
                 target = hero;
                 bestDistanceSqr = distToTargetSqr;
@@ -112,27 +104,23 @@ public class Monster : Creature
             _target = target;
 
             if (_target != null)
-            {
                 CreatureState = ECreatureState.Move;
-            }
-        }     
-    }        
+        }
+    }
 
     protected override void UpdateMove()
     {
-        Debug.Log("Move");
-
         if (_target == null)
         {
             // Patrol or Return
             Vector3 dir = (_destPos - transform.position);
-            float moveDist = Mathf.Min(dir.magnitude, Time.deltaTime * MoveSpeed);
-            transform.TranslateEx(dir.normalized * moveDist);
-
             if (dir.sqrMagnitude <= 0.01f)
             {
                 CreatureState = ECreatureState.Idle;
+                return;
             }
+
+            SetRigidBodyVelocity(dir.normalized * MoveSpeed);
         }
         else
         {
@@ -147,12 +135,10 @@ public class Monster : Creature
                 CreatureState = ECreatureState.Skill;
                 StartWait(2.0f);
             }
-
             else
             {
                 // 공격 범위 밖이라면 추적.
-                float moveDist = Mathf.Min(dir.magnitude, Time.deltaTime * MoveSpeed);
-                transform.TranslateEx(dir.normalized * moveDist);
+                SetRigidBodyVelocity(dir.normalized * MoveSpeed);
 
                 // 너무 멀어지면 포기.
                 float searchDistanceSqr = SearchDistance * SearchDistance;
@@ -168,19 +154,32 @@ public class Monster : Creature
 
     protected override void UpdateSkill()
     {
-        Debug.Log("Skill");
 
-        if(null != _coWait)
-        {
+        if (_coWait != null)
             return;
-        }    
 
         CreatureState = ECreatureState.Move;
     }
 
     protected override void UpdateDead()
     {
-        Debug.Log("Dead");
+
+    }
+    #endregion
+
+    #region Battle
+    public override void OnDamaged(BaseObject attacker)
+    {
+        base.OnDamaged(attacker);
+    }
+
+    public override void OnDead(BaseObject attacker)
+    {
+        base.OnDead(attacker);
+
+        // TODO : Drop Item
+
+        Managers.Object.Despawn(this);
     }
     #endregion
 }

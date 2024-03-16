@@ -13,10 +13,10 @@ public static class Define
 
     public enum EUIEvent
     {
-        Click,           //클릭했을 때
-        PointerDown,     //마우스를 누르는 순간
-        PointerUp,       //마우스를 떼는 순간
-        Drag,            //마우스를 누르고 드래그 하는 순간
+        Click,
+        PointerDown,
+        PointerUp,
+        Drag,
     }
 
     public enum EJoystickState
@@ -24,6 +24,13 @@ public static class Define
         PointerDown,
         PointerUp,
         Drag,
+    }
+
+    public enum ESound
+    {
+        Bgm,
+        Effect,
+        Max,
     }
 
     public enum EObjectType
@@ -51,14 +58,14 @@ public static class Define
         Skill,
         Dead
     }
+
     public enum EHeroMoveState
     {
         None,
         TargetMonster,
         CollectEnv,
         ReturnToCamp,
-        ForceMove,
-        ForcePath
+        ForceMove
     }
 
     public enum EEnvState
@@ -68,13 +75,6 @@ public static class Define
         Dead
     }
 
-
-    public enum ESound
-    {
-        Bgm,
-        Effect,
-        Max,
-    }
     public enum ELayer
     {
         Default = 0,
@@ -85,9 +85,16 @@ public static class Define
         UI = 5,
         Hero = 6,
         Monster = 7,
-        Env = 8,
+        GatheringResource = 8,
         Obstacle = 9,
         Projectile = 10,
+    }
+
+    public enum EColliderSize
+    {
+        Small,
+        Normal,
+        Big
     }
 
     public const int CAMERA_PROJECTION_SIZE = 12;
@@ -130,4 +137,3 @@ public static class SortingLayers
     public const int SKILL_EFFECT = 310;
     public const int DAMAGE_FONT = 410;
 }
-

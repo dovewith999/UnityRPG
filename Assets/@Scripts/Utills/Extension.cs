@@ -23,10 +23,8 @@ public static class Extension
 
     public static bool IsValid(this BaseObject bo)
     {
-        if(null == bo || false == bo.isActiveAndEnabled)
-        {
+        if (bo == null || bo.isActiveAndEnabled == false)
             return false;
-        }
 
         return true;
     }
@@ -35,16 +33,6 @@ public static class Extension
     {
         foreach (Transform child in go.transform)
             Managers.Resource.Destroy(child.gameObject);
-    }
-
-    public static void TranslateEx(this Transform transform, Vector3 dir)
-    {
-        BaseObject bo = transform.gameObject.GetComponent<BaseObject>();   
-
-        if(null != bo)
-        {
-            bo.TranslateEx(dir);
-        }
     }
 
     public static void Shuffle<T>(this IList<T> list)
