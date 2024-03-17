@@ -109,7 +109,9 @@ public class Monster : Creature
             SkillBase skill = Skills.GetReadySkill();
             ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, skill);
 
-           // ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, 5.0f);
+            // ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, 5.0f);
+
+            Debug.Log("Goblin Attack");
 
             // 너무 멀어지면 포기.
             if (Target.IsValid() == false)

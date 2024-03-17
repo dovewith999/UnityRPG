@@ -121,8 +121,8 @@ public static class Define
 
 public static class AnimName
 {
-    public const string ATTACK_A = "attack";
-    public const string ATTACK_B = "attack";
+    public const string ATTACK_A = "attack_a";
+    public const string ATTACK_B = "attack_b";
     public const string SKILL_A = "skill";
     public const string SKILL_B = "skill";
     public const string IDLE = "idle";
