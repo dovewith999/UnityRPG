@@ -63,12 +63,12 @@ public class Env : BaseObject
                 break;
         }
     }
-    public override void OnDamaged(BaseObject attacker)
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
     {
         if (EnvState == EEnvState.Dead)
             return;
 
-        base.OnDamaged(attacker);
+        base.OnDamaged(attacker, skill);
 
         float finalDamage = 1;
         EnvState = EEnvState.OnDamaged;

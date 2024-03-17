@@ -50,6 +50,9 @@ public class Monster : Creature
 
         // State
         CreatureState = ECreatureState.Idle;
+
+        Skills = gameObject.GetOrAddComponent<SkillComponent>();
+        Skills.SetInfo(this, CreatureData.SkillIdList);
     }
 
     void Start()
@@ -58,7 +61,6 @@ public class Monster : Creature
     }
 
     #region AI
-    public float AttackDistance { get; private set; } = 4.0f;
     Vector3 _destPos;
     Vector3 _initPos;
 
@@ -104,7 +106,10 @@ public class Monster : Creature
         }
         else
         {
-            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, 5.0f);
+            SkillBase skill = Skills.GetReadySkill();
+            ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, skill);
+
+           // ChaseOrAttackTarget(MONSTER_SEARCH_DISTANCE, 5.0f);
 
             // 너무 멀어지면 포기.
             if (Target.IsValid() == false)
@@ -118,22 +123,25 @@ public class Monster : Creature
 
     protected override void UpdateSkill()
     {
-        if (_coWait != null)
+        if(false == Target.IsValid())
+        {
+            Target = null;
+            _destPos = _initPos;
+            CreatureState = ECreatureState.Move;
             return;
-
-        CreatureState = ECreatureState.Move;
+        }
     }
 
     protected override void UpdateDead()
     {
-
+        SetRigidBodyVelocity(Vector2.zero);
     }
     #endregion
 
     #region Battle
-    public override void OnDamaged(BaseObject attacker)
+    public override void OnDamaged(BaseObject attacker, SkillBase skill)
     {
-        base.OnDamaged(attacker);
+        base.OnDamaged(attacker, skill);
     }
 
     public override void OnDead(BaseObject attacker)
